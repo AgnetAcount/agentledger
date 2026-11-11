@@ -35,6 +35,7 @@ jobs:
         run: npm run build
 
       - name: Run test suite
-        # bash expands tests/*.test.mjs on every runner; Node 18 has no built-in glob.
+        # Run node directly under bash so the glob is expanded on every runner.
+        # `npm test` would use cmd.exe on Windows, where Node 18/20 have no glob support.
         shell: bash
-        run: npm test
+        run: node --test tests/*.test.mjs
