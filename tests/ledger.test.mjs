@@ -2,13 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {
-  createLedger,
-  GENESIS_HASH,
-  isHash,
-  verifyLedgerFile,
-} from '../dist/index.js';
-import { makeTempDir, readLines, readText, removeDir } from './helpers.mjs';
+import { GENESIS_HASH, isHash, verifyLedgerFile } from '../dist/index.js';
+import { createLedger, makeTempDir, readLines, readText, removeDir } from './helpers.mjs';
 
 test('createLedger creates an empty ledger file with restrictive intent', async (t) => {
   const dir = makeTempDir();

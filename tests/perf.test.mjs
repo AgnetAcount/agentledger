@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as path from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { createLedger, verifyLedgerFile } from '../dist/index.js';
-import { makeTempDir, removeDir } from './helpers.mjs';
+import { verifyLedgerFile } from '../dist/index.js';
+import { createLedger, makeTempDir, removeDir } from './helpers.mjs';
 
 const APPEND_RECORDS = 1000;
 const VERIFY_SAMPLES = 5;

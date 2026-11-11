@@ -4,8 +4,14 @@ import { spawnSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createLedger } from '../dist/index.js';
-import { makeTempDir, readLines, readText, removeDir, seedLedger } from './helpers.mjs';
+import {
+  createLedger,
+  makeTempDir,
+  readLines,
+  readText,
+  removeDir,
+  seedLedger,
+} from './helpers.mjs';
 
 const projectRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const binPath = path.join(projectRoot, 'bin', 'agentledger.js');

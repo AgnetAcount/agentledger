@@ -1,15 +1,36 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
+import { createLedger as createLedgerBase } from '../dist/index.js';
+
+const activeLedgers = new Set();
 
 /** Create an isolated temporary directory for a test. */
 export function makeTempDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'agentledger-test-'));
 }
 
-/** Remove a temporary directory, tolerating Windows file-lock races. */
-export function removeDir(dir) {
-  fs.rmSync(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 50 });
+/** Create a ledger whose append descriptor is closed during test cleanup. */
+export async function createLedger(options) {
+  const ledger = await createLedgerBase(options);
+  activeLedgers.add(ledger);
+  return ledger;
+}
+
+/**
+ * Close every ledger opened by createLedger().
+ * Windows Node 18/20 cannot delete a directory while an append descriptor is open.
+ */
+async function closeActiveLedgers() {
+  const ledgers = [...activeLedgers];
+  activeLedgers.clear();
+  await Promise.allSettled(ledgers.map((ledger) => ledger.close()));
+}
+
+/** Close tracked ledgers, then remove a temporary directory. */
+export async function removeDir(dir) {
+  await closeActiveLedgers();
+  fs.rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 }
 
 /** Read a file as UTF-8 text. */
