@@ -1,0 +1,56 @@
+{
+  "name": "agentledger",
+  "version": "0.1.0",
+  "description": "Tamper-evident, zero-dependency audit trail and replay log for AI agent tool calls",
+  "keywords": [
+    "ai",
+    "agent",
+    "audit-log",
+    "audit-trail",
+    "tamper-evident",
+    "hash-chain",
+    "jsonl",
+    "redaction",
+    "hmac",
+    "llm",
+    "observability",
+    "cli"
+  ],
+  "author": "Agnet Software Corp. <https://github.com/AgnetAcount>",
+  "license": "MIT",
+  "homepage": "https://github.com/AgnetAcount/agentledger#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgnetAcount/agentledger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AgnetAcount/agentledger/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "agentledger": "./bin/agentledger.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs",
+    "prepare": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
